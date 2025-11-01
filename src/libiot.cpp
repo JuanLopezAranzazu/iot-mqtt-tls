@@ -26,16 +26,6 @@
 #include <SHTSensor.h>
 #include <libota.h>
 
-//#define PRINT
-#ifdef PRINT
-#define PRINTD(x, y) Serial.println(x, y)
-#define PRINTLN(x) Serial.println(x)
-#define PRINT(x) Serial.print(x)
-#else
-#define PRINTD(x, y)
-#define PRINTLN(x)
-#define PRINT(x)
-#endif
 
 SHTSensor sht;     //Sensor SHT21
 String alert = ""; //Mensaje de alerta
@@ -142,16 +132,16 @@ void setupSHT() {
  */
 bool measure(SensorData * data) {
   if ((millis() - measureTime) >= MEASURE_INTERVAL * 1000 ) {
-    PRINTLN("\nMidiendo variables...");
+    Serial.println("Midiendo variables...");
     measureTime = millis();    
     if (sht.readSample()) {
         data->temperature = sht.getTemperature();
         data->humidity = sht.getHumidity();
-        PRINT(" %RH ❖ Temperatura: ");
-        PRINTD(data->humidity, 2);
-        PRINT(" %RH ❖ Temperatura: ");
-        PRINTD(data->temperature, 2);
-        PRINTLN(" °C");
+        Serial.print("Temperatura: ");
+        Serial.print(data->temperature, 2);
+        Serial.print(" °C, Humedad: ");
+        Serial.print(data->humidity, 2);
+        Serial.print(" %\n");
         return true;
     } else {
         Serial.print("Error leyendo la muestra\n");
@@ -181,13 +171,19 @@ String checkAlert() {
  */
 void sendSensorData(float temperatura, float humedad) {
   String data = "{";
-  data += "\"temperatura\": "+ String(temperatura, 1) +", ";
-  data += "\"humedad\": "+ String(humedad, 1);
+  data += "\"temperatura\": "+ String(temperatura, 2) +", ";
+  data += "\"humedad\": "+ String(humedad, 2);
   data += "}";
   char payload[data.length()+1];
   data.toCharArray(payload,data.length()+1);
-  PRINTLN("client id: " + String(client_id) + "\ntopic: " + String(MQTT_TOPIC_PUB) + "\npayload: " + data);
-  client.publish(MQTT_TOPIC_PUB, payload);
+
+  // Verificar si la publicación fue exitosa
+  if (client.publish(MQTT_TOPIC_PUB, payload)) {
+    Serial.println("Datos publicados: " + data);
+    Serial.println("Publicado en " + String(MQTT_TOPIC_PUB));
+  } else {
+    Serial.println("Error al publicar los datos");
+  }
 }
 
 

@@ -68,10 +68,10 @@ void displayHeader(time_t now) {  // Se recibe el tiempo actual como parámetro
 void displayMeasures(float temp, float humi) {
   display.println("");
   display.print("T: ");
-  display.print(temp);  // Se imprime la temperatura
+  display.print(temp, 2);  // Se imprime la temperatura
   display.print("    ");
   display.print("H: ");
-  display.print(humi);  // Se imprime la humedad
+  display.print(humi, 2);  // Se imprime la humedad
   display.println("");
 }
 

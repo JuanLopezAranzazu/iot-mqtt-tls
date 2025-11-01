@@ -46,24 +46,24 @@
 #define CITY "tulua"                            ///< Ciudad (definir vía .env)
 #endif
 #ifndef MQTT_SERVER
-#define MQTT_SERVER "mqtt.alvarosalazar.freeddns.org"                     ///< Servidor MQTT (definir vía .env)
+#define MQTT_SERVER "juanlopez.freeddns.org"                     ///< Servidor MQTT (definir vía .env)
 #endif
 #ifndef MQTT_PORT
 #define MQTT_PORT 8883                            ///< Puerto seguro (TLS)
 #endif
 #ifndef MQTT_USER
-#define MQTT_USER "alvaro"                         ///< Usuario MQTT (definir vía .env)
+#define MQTT_USER "juanlopez"                         ///< Usuario MQTT (definir vía .env)
 #endif
 #ifndef MQTT_PASSWORD
-#define MQTT_PASSWORD "supersecreto"                    ///< Contraseña MQTT (definir vía .env)
+#define MQTT_PASSWORD "secret123"                    ///< Contraseña MQTT (definir vía .env)
 #endif
 
 // Variables de configuración de la red WiFi
 #ifndef WIFI_SSID
-#define WIFI_SSID "Realme 6"                       ///< SSID por defecto vacío; usar aprovisionamiento
+#define WIFI_SSID ""                       ///< SSID por defecto vacío; usar aprovisionamiento
 #endif
 #ifndef WIFI_PASSWORD
-#define WIFI_PASSWORD "pbernal309"                   ///< Password por defecto vacío; usar aprovisionamiento
+#define WIFI_PASSWORD ""                   ///< Password por defecto vacío; usar aprovisionamiento
 #endif
 
 // Alias para compatibilidad con el código existente
